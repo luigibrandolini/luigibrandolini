@@ -5,8 +5,9 @@ export const site = {
 };
 
 export const seo = {
-  title: "Luigi Brandolini | Personal page",
-  description: "Biografia, percorso professionale, progetti e servizi per aziende.",
+  title: "Luigi Brandolini | Engineering Leader & Technical Project Manager",
+  description:
+    "Aiuto le organizzazioni a progettare, costruire e scalare sistemi software complessi, allineando strategia, architettura e delivery.",
 };
 
 export const locales = ["it", "en", "es", "fr"] as const;
