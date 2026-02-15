@@ -1,0 +1,330 @@
+---
+import {
+  locales,
+  defaultLocale,
+  localeLabels,
+  localeFlags,
+  socials,
+  type Locale,
+} from "../data/site";
+
+const { lang, t, portfolio } = Astro.props as {
+  lang: Locale;
+  t: {
+    title: string;
+    intro: string;
+    bio: string;
+    cta: string;
+    sectionAbout: string;
+    sectionPortfolio: string;
+    sectionProjects: string;
+    sectionContact: string;
+    portfolioIntro: string;
+    projectsIntro: string;
+    aboutBio: string;
+    aboutCreative: string;
+    aboutOrigins: string;
+    aboutOriginsTitle: string;
+    creativeTitle: string;
+    professionalTitle: string;
+    readyToCollaborate: string;
+    asyncContact: string;
+    languageLabel: string;
+    heroImageAlt: string;
+    featuredProjectDescription: string;
+    featuredProjectTagOpenSource: string;
+  };
+  portfolio: {
+    title: string;
+    description: string;
+    tags: string[];
+    link: string;
+  }[];
+};
+
+const localePath = (code: Locale) => (code === defaultLocale ? "/" : `/${code}/`);
+---
+
+<header class="hero">
+  <nav class="nav">
+    <div class="brand">Luigi Brandolini</div>
+    <div class="nav-links">
+      <a href="#about">{t.sectionAbout}</a>
+      <a href="#portfolio">{t.sectionPortfolio}</a>
+      <a href="#projects">{t.sectionProjects}</a>
+      <a href="#contact">{t.sectionContact}</a>
+    </div>
+    <div class="lang-switch">
+      <label class="sr-only" for="lang-select">{t.languageLabel}</label>
+      <select
+        id="lang-select"
+        class="lang-select"
+        name="lang"
+        onChange="window.location.href=this.value"
+      >
+        {locales.map((code) => (
+          <option value={localePath(code)} selected={code === lang}>
+            {localeFlags[code]} {localeLabels[code]}
+          </option>
+        ))}
+      </select>
+      <noscript>
+        <div class="lang-links">
+          {locales.map((code) => (
+            <a href={localePath(code)}>
+              {localeFlags[code]} {localeLabels[code]}
+            </a>
+          ))}
+        </div>
+      </noscript>
+    </div>
+  </nav>
+
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <h1>{t.title}</h1>
+      <div class="hero-image-mobile">
+        <img
+          src="/hero.png"
+          alt={t.heroImageAlt}
+          loading="eager"
+        />
+      </div>
+      <p class="lead">{t.intro}</p>
+      <p class="bio">{t.bio}</p>
+      <a class="cta" href="#contact">
+        <svg class="cta-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            fill="currentColor"
+            d="M20 4H4c-1.1 0-2 0.9-2 2v12c0 1.1 0.9 2 2 2h16c1.1 0 2-0.9 2-2V6c0-1.1-0.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
+          />
+        </svg>
+        {t.cta}
+      </a>
+    </div>
+    <div class="hero-image">
+      <img
+        src="/hero.png"
+        alt={t.heroImageAlt}
+        loading="eager"
+      />
+    </div>
+  </div>
+</header>
+
+<main class="main">
+  <section id="about" class="section">
+    <div class="section-head">
+      <h2>{t.sectionAbout}</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-block about-origins">
+        <h3>{t.aboutOriginsTitle}</h3>
+        <p>{t.aboutOrigins}</p>
+      </div>
+      <div class="about-block about-main">
+        <h3>{t.professionalTitle}</h3>
+        <p set:html={t.aboutBio} />
+      </div>
+      <div class="about-block about-creative">
+        <h3>{t.creativeTitle}</h3>
+        <p set:html={t.aboutCreative} />
+      </div>
+    </div>
+  </section>
+
+  <section id="portfolio" class="section">
+    <div class="section-head">
+      <h2>{t.sectionPortfolio}</h2>
+      <p>{t.portfolioIntro}</p>
+    </div>
+    <div class="portfolio-grid">
+      {portfolio.map((item) => (
+        <article class="portfolio-card">
+          <div>
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+          </div>
+          <div class="card-footer">
+            <div class="tags">
+              {item.tags.map((tag) => (
+                <span>{tag}</span>
+              ))}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id="projects" class="section">
+    <div class="section-head">
+      <h2>{t.sectionProjects}</h2>
+      <p>{t.projectsIntro}</p>
+    </div>
+    <div class="projects-grid">
+      <article class="project-card">
+        <div class="project-header">
+          <svg class="project-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              fill="currentColor"
+              d="M12 0.3c-6.6 0-12 5.4-12 12 0 5.3 3.4 9.8 8.2 11.4 0.6 0.1 0.8-0.3 0.8-0.6v-2.2c-3.3 0.7-4-1.6-4-1.6-0.6-1.4-1.4-1.8-1.4-1.8-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.3 2 1.3 1.2 2 3.2 1.4 4 1.1 0.1-0.9 0.5-1.4 0.9-1.7-2.6-0.3-5.4-1.3-5.4-5.9 0-1.3 0.5-2.4 1.2-3.3-0.1-0.3-0.5-1.5 0.1-3.1 0 0 1-0.3 3.4 1.2 1-0.3 2-0.4 3-0.4s2 0.1 3 0.4c2.4-1.6 3.4-1.2 3.4-1.2 0.6 1.6 0.2 2.8 0.1 3.1 0.8 0.9 1.2 2 1.2 3.3 0 4.6-2.8 5.6-5.4 5.9 0.4 0.4 0.9 1.1 0.9 2.3v3.4c0 0.3 0.2 0.7 0.8 0.6 4.8-1.6 8.2-6.1 8.2-11.4 0-6.6-5.4-12-12-12z"
+            />
+          </svg>
+          <h3>ng-decoform</h3>
+        </div>
+        <p class="project-desc">
+          {t.featuredProjectDescription}
+        </p>
+        <div class="project-tags">
+          <span>Angular</span>
+          <span>TypeScript</span>
+          <span>Forms</span>
+          <span>{t.featuredProjectTagOpenSource}</span>
+        </div>
+        <div class="project-links">
+          <a href="https://www.npmjs.com/package/ng-decoform" target="_blank" rel="noopener noreferrer" class="project-link">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M0 7.3v8.2l6.5 3.7V9.7L3.3 7.8v7.5L1.6 14v-5l4.9-2.8L12 9l5.5-2.8L22.4 9v5l-1.7 1.3V7.8L17.5 9.7v9.5l6.5-3.7V7.3L12 0 0 7.3z"/>
+            </svg>
+            npm
+          </a>
+          <a href="https://github.com/luigibrandolini/ng-decoform" target="_blank" rel="noopener noreferrer" class="project-link">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M12 0.3c-6.6 0-12 5.4-12 12 0 5.3 3.4 9.8 8.2 11.4 0.6 0.1 0.8-0.3 0.8-0.6v-2.2c-3.3 0.7-4-1.6-4-1.6-0.6-1.4-1.4-1.8-1.4-1.8-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.3 2 1.3 1.2 2 3.2 1.4 4 1.1 0.1-0.9 0.5-1.4 0.9-1.7-2.6-0.3-5.4-1.3-5.4-5.9 0-1.3 0.5-2.4 1.2-3.3-0.1-0.3-0.5-1.5 0.1-3.1 0 0 1-0.3 3.4 1.2 1-0.3 2-0.4 3-0.4s2 0.1 3 0.4c2.4-1.6 3.4-1.2 3.4-1.2 0.6 1.6 0.2 2.8 0.1 3.1 0.8 0.9 1.2 2 1.2 3.3 0 4.6-2.8 5.6-5.4 5.9 0.4 0.4 0.9 1.1 0.9 2.3v3.4c0 0.3 0.2 0.7 0.8 0.6 4.8-1.6 8.2-6.1 8.2-11.4 0-6.6-5.4-12-12-12z"/>
+            </svg>
+            GitHub
+          </a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="contact" class="section">
+    <div class="section-head">
+      <h2>{t.sectionContact}</h2>
+      <p>{t.readyToCollaborate}</p>
+    </div>
+    <div class="contact-card">
+      <p>{t.asyncContact}</p>
+      <div class="contact-actions">
+        <a href={socials.linkedin} class="contact-btn">
+          <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M20.4 20.4h-3.5v-5.4c0-1.3 0-3-1.8-3s-2 1.4-2 2.9v5.5H9.6V9h3.4v1.6h0c0.5-0.9 1.6-1.8 3.2-1.8 3.4 0 4.1 2.2 4.1 5.1v6.5zM5.6 7.5c-1.1 0-2-0.9-2-2s0.9-2 2-2 2 0.9 2 2-0.9 2-2 2zM7.3 20.4H3.9V9h3.4v11.4zM22.2 0H1.8C0.8 0 0 0.8 0 1.8v20.3C0 23.2 0.8 24 1.8 24h20.3c1 0 1.8-0.8 1.8-1.8V1.8C24 0.8 23.2 0 22.2 0z"/>
+          </svg>
+          LinkedIn
+        </a>
+        <a href={socials.github} class="contact-btn">
+          <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M12 0.3c-6.6 0-12 5.4-12 12 0 5.3 3.4 9.8 8.2 11.4 0.6 0.1 0.8-0.3 0.8-0.6v-2.2c-3.3 0.7-4-1.6-4-1.6-0.6-1.4-1.4-1.8-1.4-1.8-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.3 2 1.3 1.2 2 3.2 1.4 4 1.1 0.1-0.9 0.5-1.4 0.9-1.7-2.6-0.3-5.4-1.3-5.4-5.9 0-1.3 0.5-2.4 1.2-3.3-0.1-0.3-0.5-1.5 0.1-3.1 0 0 1-0.3 3.4 1.2 1-0.3 2-0.4 3-0.4s2 0.1 3 0.4c2.4-1.6 3.4-1.2 3.4-1.2 0.6 1.6 0.2 2.8 0.1 3.1 0.8 0.9 1.2 2 1.2 3.3 0 4.6-2.8 5.6-5.4 5.9 0.4 0.4 0.9 1.1 0.9 2.3v3.4c0 0.3 0.2 0.7 0.8 0.6 4.8-1.6 8.2-6.1 8.2-11.4 0-6.6-5.4-12-12-12z"/>
+            </svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href={socials.linkedin} aria-label="LinkedIn" title="LinkedIn">
+      <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          fill="currentColor"
+          d="M20.4 20.4h-3.5v-5.4c0-1.3 0-3-1.8-3s-2 1.4-2 2.9v5.5H9.6V9h3.4v1.6h0c0.5-0.9 1.6-1.8 3.2-1.8 3.4 0 4.1 2.2 4.1 5.1v6.5zM5.6 7.5c-1.1 0-2-0.9-2-2s0.9-2 2-2 2 0.9 2 2-0.9 2-2 2zM7.3 20.4H3.9V9h3.4v11.4zM22.2 0H1.8C0.8 0 0 0.8 0 1.8v20.3C0 23.2 0.8 24 1.8 24h20.3c1 0 1.8-0.8 1.8-1.8V1.8C24 0.8 23.2 0 22.2 0z"
+        />
+      </svg>
+    </a>
+    <a href={socials.github} aria-label="GitHub" title="GitHub">
+      <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          fill="currentColor"
+          d="M12 0.3c-6.6 0-12 5.4-12 12 0 5.3 3.4 9.8 8.2 11.4 0.6 0.1 0.8-0.3 0.8-0.6v-2.2c-3.3 0.7-4-1.6-4-1.6-0.6-1.4-1.4-1.8-1.4-1.8-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.3 2 1.3 1.2 2 3.2 1.4 4 1.1 0.1-0.9 0.5-1.4 0.9-1.7-2.6-0.3-5.4-1.3-5.4-5.9 0-1.3 0.5-2.4 1.2-3.3-0.1-0.3-0.5-1.5 0.1-3.1 0 0 1-0.3 3.4 1.2 1-0.3 2-0.4 3-0.4s2 0.1 3 0.4c2.4-1.6 3.4-1.2 3.4-1.2 0.6 1.6 0.2 2.8 0.1 3.1 0.8 0.9 1.2 2 1.2 3.3 0 4.6-2.8 5.6-5.4 5.9 0.4 0.4 0.9 1.1 0.9 2.3v3.4c0 0.3 0.2 0.7 0.8 0.6 4.8-1.6 8.2-6.1 8.2-11.4 0-6.6-5.4-12-12-12z"
+        />
+      </svg>
+    </a>
+    <a href={socials.facebook} aria-label="Facebook" title="Facebook">
+      <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          fill="currentColor"
+          d="M24 12c0-6.6-5.4-12-12-12S0 5.4 0 12c0 6 4.4 11 10.1 11.9v-8.4H7.1V12h3V9.4c0-3 1.8-4.6 4.5-4.6 1.3 0 2.6 0.2 2.6 0.2v2.9h-1.5c-1.5 0-2 0.9-2 1.9V12h3.4l-0.5 3.5h-2.9v8.4C19.6 23 24 18 24 12z"
+        />
+      </svg>
+    </a>
+    <a href={socials.instagram} aria-label="Instagram" title="Instagram">
+      <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          fill="currentColor"
+          d="M12 6.5c-3 0-5.5 2.5-5.5 5.5s2.5 5.5 5.5 5.5 5.5-2.5 5.5-5.5-2.5-5.5-5.5-5.5zm0 9c-1.9 0-3.5-1.6-3.5-3.5S10.1 8.5 12 8.5s3.5 1.6 3.5 3.5-1.6 3.5-3.5 3.5z"
+        />
+        <path
+          fill="currentColor"
+          d="M17.8 3.8c-0.8 0-1.4 0.6-1.4 1.4s0.6 1.4 1.4 1.4 1.4-0.6 1.4-1.4-0.6-1.4-1.4-1.4z"
+        />
+        <path
+          fill="currentColor"
+          d="M12 2.2c-2.7 0-3 0-4.1 0.1-1.1 0.1-1.8 0.2-2.5 0.5-0.7 0.3-1.3 0.7-1.9 1.3-0.6 0.6-1 1.2-1.3 1.9-0.3 0.7-0.5 1.4-0.5 2.5C1.6 9.6 1.6 9.9 1.6 12s0 2.4 0.1 3.5c0.1 1.1 0.2 1.8 0.5 2.5 0.3 0.7 0.7 1.3 1.3 1.9 0.6 0.6 1.2 1 1.9 1.3 0.7 0.3 1.4 0.5 2.5 0.5 1.1 0.1 1.4 0.1 4.1 0.1s3 0 4.1-0.1c1.1-0.1 1.8-0.2 2.5-0.5 0.7-0.3 1.3-0.7 1.9-1.3 0.6-0.6 1-1.2 1.3-1.9 0.3-0.7 0.5-1.4 0.5-2.5 0.1-1.1 0.1-1.4 0.1-3.5s0-2.4-0.1-3.5c-0.1-1.1-0.2-1.8-0.5-2.5-0.3-0.7-0.7-1.3-1.3-1.9-0.6-0.6-1.2-1-1.9-1.3-0.7-0.3-1.4-0.5-2.5-0.5C15 2.2 14.7 2.2 12 2.2zm0 2c2.6 0 2.9 0 4 0.1 1 0.1 1.5 0.2 1.9 0.4 0.5 0.2 0.9 0.5 1.2 0.8 0.4 0.4 0.7 0.8 0.8 1.2 0.2 0.4 0.3 0.9 0.4 1.9 0.1 1.1 0.1 1.4 0.1 4s0 2.9-0.1 4c-0.1 1-0.2 1.5-0.4 1.9-0.2 0.5-0.5 0.9-0.8 1.2-0.4 0.4-0.8 0.7-1.2 0.8-0.4 0.2-0.9 0.3-1.9 0.4-1.1 0.1-1.4 0.1-4 0.1s-2.9 0-4-0.1c-1-0.1-1.5-0.2-1.9-0.4-0.5-0.2-0.9-0.5-1.2-0.8-0.4-0.4-0.7-0.8-0.8-1.2-0.2-0.4-0.3-0.9-0.4-1.9-0.1-1.1-0.1-1.4-0.1-4s0-2.9 0.1-4c0.1-1 0.2-1.5 0.4-1.9 0.2-0.5 0.5-0.9 0.8-1.2 0.4-0.4 0.8-0.7 1.2-0.8 0.4-0.2 0.9-0.3 1.9-0.4 1.1-0.1 1.4-0.1 4-0.1z"
+        />
+      </svg>
+    </a>
+    <a href={socials.youtube} aria-label="YouTube" title="YouTube">
+      <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          fill="currentColor"
+          d="M23.5 7.1s-0.2-1.7-0.8-2.4c-0.8-0.9-1.7-0.9-2.1-1C17.7 3.3 12 3.3 12 3.3h0s-5.7 0-8.6 0.4c-0.4 0.1-1.3 0.1-2.1 1C0.7 5.4 0.5 7.1 0.5 7.1S0.3 9 0.3 10.9v1.9c0 1.9 0.2 3.8 0.2 3.8s0.2 1.7 0.8 2.4c0.8 0.9 1.9 0.9 2.4 1 1.7 0.2 7.3 0.4 7.3 0.4s5.7 0 8.6-0.4c0.4-0.1 1.3-0.1 2.1-1 0.6-0.7 0.8-2.4 0.8-2.4s0.2-1.9 0.2-3.8v-1.9c0-1.9-0.2-3.8-0.2-3.8zM9.5 14.7V7.7l6.2 3.5-6.2 3.5z"
+        />
+      </svg>
+    </a>
+  </div>
+  <p>© {new Date().getFullYear()} Luigi Brandolini. All rights reserved.</p>
+</footer>
+
+<button id="scroll-to-top" class="scroll-to-top" aria-label="Torna su">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path fill="currentColor" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
+  </svg>
+</button>
+
+<script>
+  const scrollButton = document.getElementById('scroll-to-top');
+  
+  if (scrollButton) {
+    // Show/hide button based on scroll position
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        scrollButton.classList.add('visible');
+      } else {
+        scrollButton.classList.remove('visible');
+      }
+    });
+    
+    // Scroll to navigation on click
+    scrollButton.addEventListener('click', () => {
+      const nav = document.querySelector('.nav');
+      if (nav) {
+        nav.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  }
+  
+  // Smooth scroll for navigation links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const href = this.getAttribute('href');
+      if (href === '#') return;
+      
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+</script>

@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import HomePage from "../../components/HomePage.astro";
+import {
+  content,
+  defaultLocale,
+  locales,
+  portfolio,
+  site,
+  type Locale,
+} from "../../data/site";
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  return locales
+    .filter((locale) => locale !== defaultLocale)
+    .map((locale) => ({ params: { lang: locale } }));
+}
+
+const langParam = Astro.params.lang as Locale | undefined;
+const lang = locales.includes(langParam as Locale) ? (langParam as Locale) : defaultLocale;
+const t = content[lang];
+const canonical = new URL(`/${lang}/`, Astro.site).toString();
+const alternates = locales.map((locale) => ({
+  lang: locale,
+  href: new URL(locale === defaultLocale ? "/" : `/${locale}/`, Astro.site).toString(),
+}));
+---
+
+<BaseLayout
+  title={t.title}
+  description={t.intro}
+  canonical={canonical}
+  alternates={alternates}
+  lang={lang}
+  siteName={site.name}
+>
+  <HomePage lang={lang} t={t} portfolio={portfolio[lang]} />
+</BaseLayout>

@@ -1,18 +1,16 @@
-## Hi there 👋
+# Luigi Brandolini - Multilingual Portfolio
 
-I'm an engineering leader, technical project manager and creative technologist based in Rome. With 16+ years of experience in enterprise software, AI-driven innovation and team growth, I help organizations design and scale complex systems. I'm very passionate about technology, music, and writing. “Ponte numero IX” is my first novel.
+Astro site with i18n routing (IT, EN, ES, FR), SEO metadata, and GitHub Pages deployment.
 
-<!--
-**luigibrandolini/luigibrandolini** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+## Commands
 
-Here are some ideas to get you started:
+| Command         | Action                                      |
+| :-------------- | :------------------------------------------ |
+| `npm install`   | Install dependencies                        |
+| `npm run dev`   | Start dev server at `localhost:4321`        |
+| `npm run build` | Build production site to `./dist/`          |
+| `npm run preview` | Preview the production build locally     |
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+## Deployment
+
+Push to `main` to trigger GitHub Actions for GitHub Pages. The workflow is in `.github/workflows/deploy.yml`.

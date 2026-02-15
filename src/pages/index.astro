@@ -1,17 +1,30 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HomePage from "../components/HomePage.astro";
+import {
+	content,
+	defaultLocale,
+	locales,
+	portfolio,
+	site,
+} from "../data/site";
 
+const lang = defaultLocale;
+const t = content[lang];
+const canonical = new URL("/", Astro.site).toString();
+const alternates = locales.map((locale) => ({
+	lang: locale,
+	href: new URL(locale === defaultLocale ? "/" : `/${locale}/`, Astro.site).toString(),
+}));
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+	title={t.title}
+	description={t.intro}
+	canonical={canonical}
+	alternates={alternates}
+	lang={lang}
+	siteName={site.name}
+>
+	<HomePage lang={lang} t={t} portfolio={portfolio[lang]} />
+</BaseLayout>
