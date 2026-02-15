@@ -12,7 +12,42 @@ const {
 const rawBaseUrl = import.meta.env.BASE_URL;
 const baseUrl = rawBaseUrl.endsWith("/") ? rawBaseUrl : `${rawBaseUrl}/`;
 const faviconIco = `${baseUrl}favicon.ico`;
-const logoImage = `${baseUrl}lb-logo.svg`;
+const socialImage = new URL(`${baseUrl}hero.png`, Astro.site).toString();
+const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
+const xDefaultHref =
+  alternates.find((item: { lang: string; href: string }) => item.lang === "it")?.href ?? canonical;
+const localeMap: Record<string, string> = {
+  it: "it_IT",
+  en: "en_US",
+  es: "es_ES",
+  fr: "fr_FR",
+};
+const ogLocale = localeMap[lang] ?? "it_IT";
+const alternateOgLocales = Object.entries(localeMap)
+  .filter(([code]) => code !== lang)
+  .map(([, og]) => og);
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: siteName,
+  url: canonical,
+  image: socialImage,
+  description,
+  sameAs: [
+    "https://github.com/luigibrandolini",
+    "https://www.linkedin.com/in/luigibrandolini/",
+    "https://www.facebook.com/ErmesSystems",
+    "https://www.instagram.com/lb.creative.arts/",
+    "https://www.youtube.com/@LuigiBrandolini",
+  ],
+};
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: siteName,
+  url: Astro.site?.toString() ?? canonical,
+  inLanguage: lang,
+};
 ---
 
 <!doctype html>
@@ -21,29 +56,39 @@ const logoImage = `${baseUrl}lb-logo.svg`;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <meta name="robots" content="index,follow" />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
     <meta name="generator" content={Astro.generator} />
     <meta name="googlebot" content="index,follow" />
-    <meta name="google-site-verification" content="" />
-    <title>{title} | {siteName}</title>
+    {googleSiteVerification && (
+      <meta name="google-site-verification" content={googleSiteVerification} />
+    )}
+    <title>{title}</title>
     <link rel="canonical" href={canonical} />
     {alternates.map((item: { lang: string; href: string }) => (
       <link rel="alternate" hreflang={item.lang} href={item.href} />
     ))}
+    <link rel="alternate" hreflang="x-default" href={xDefaultHref} />
     <link rel="icon" type="image/x-icon" href={faviconIco} />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content={`${title} | ${siteName}`} />
+    <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={logoImage} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:alt" content={title} />
+    <meta property="og:locale" content={ogLocale} />
+    {alternateOgLocales.map((item) => (
+      <meta property="og:locale:alternate" content={item} />
+    ))}
     <meta property="og:site_name" content={siteName} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={`${title} | ${siteName}`} />
+    <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={logoImage} />
+    <meta name="twitter:image" content={socialImage} />
     <meta name="twitter:site" content="@luigibrandolini" />
     <meta name="twitter:creator" content="@luigibrandolini" />
     <meta name="keywords" content="Luigi Brandolini, portfolio, developer, open source, IT, software, Astro, web, GitHub, progetti, contatti" />
+    <script type="application/ld+json" set:html={JSON.stringify(personJsonLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />
   </head>
   <body>
     <div class="page">

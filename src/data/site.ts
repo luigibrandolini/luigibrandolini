@@ -4,6 +4,11 @@ export const site = {
   tagline: "Engineering Leader, Technical Project Manager, and creative technologist",
 };
 
+export const seo = {
+  title: "Luigi Brandolini | Personal page",
+  description: "Biografia, percorso professionale, progetti e servizi per aziende.",
+};
+
 export const locales = ["it", "en", "es", "fr"] as const;
 export const defaultLocale = "it";
 export type Locale = (typeof locales)[number];

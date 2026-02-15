@@ -6,6 +6,7 @@ import {
   defaultLocale,
   locales,
   portfolio,
+  seo,
   site,
   type Locale,
 } from "../../data/site";
@@ -29,8 +30,8 @@ const alternates = locales.map((locale) => ({
 ---
 
 <BaseLayout
-  title={t.title}
-  description={t.intro}
+  title={seo.title}
+  description={seo.description}
   canonical={canonical}
   alternates={alternates}
   lang={lang}
