@@ -1,7 +1,7 @@
 export const prerender = true;
 
 export function GET() {
-  const site = import.meta.env.SITE || "https://luigibrandolini.github.io/luigibrandolini";
+  const site = import.meta.env.SITE || "https://luigibrandolini.github.io/";
   const base = site.replace(/\/$/, "");
   const body = `User-agent: *\nAllow: /\nSitemap: ${base}/sitemap-index.xml\n`;
 

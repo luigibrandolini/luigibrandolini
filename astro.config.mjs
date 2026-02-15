@@ -4,8 +4,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://luigibrandolini.github.io/luigibrandolini/',
-	base: '/luigibrandolini',
+	site: 'https://luigibrandolini.github.io/',
 	integrations: [sitemap()],
 	i18n: {
 		defaultLocale: 'it',

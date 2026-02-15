@@ -1,6 +1,6 @@
 export const site = {
   name: "Luigi Brandolini",
-  url: "https://luigibrandolini.github.io/luigibrandolini",
+  url: "https://luigibrandolini.github.io/",
   tagline: "Engineering Leader, Technical Project Manager, and creative technologist",
 };
 
