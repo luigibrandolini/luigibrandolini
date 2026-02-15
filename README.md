@@ -1,6 +1,6 @@
 ## Hi there 👋
 
-I'm an engineering leader, technical project manager, and creative technologist based in Rome. With 16+ years of experience in enterprise software, AI-driven innovation, and team growth, I help organizations design and scale complex systems. I'm very passionate about technology, music, and writing, and is the author of the novel “Ponte numero IX.”
+I'm an engineering leader, technical project manager and creative technologist based in Rome. With 16+ years of experience in enterprise software, AI-driven innovation and team growth, I help organizations design and scale complex systems. I'm very passionate about technology, music, and writing. “Ponte numero IX” is my first novel.
 
 <!--
 **luigibrandolini/luigibrandolini** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
