@@ -73,7 +73,16 @@ body {
 }
 
 .brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-weight: 700;
+  font-family: "Avenir Next Condensed", "Futura Condensed ExtraBold", "Franklin Gothic Medium", "Trebuchet MS", sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #11263f;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.65);
 }
 
 .nav-links {
@@ -804,6 +813,7 @@ h1 {
   .brand {
     width: 100%;
     text-align: center;
+    justify-content: center;
   }
 
   .nav-links {
