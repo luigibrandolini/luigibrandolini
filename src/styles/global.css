@@ -405,6 +405,23 @@ h1 {
   margin-bottom: 8px;
 }
 
+.portfolio-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.portfolio-title h3 {
+  margin-bottom: 0;
+}
+
+.portfolio-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--accent-dark);
+  flex-shrink: 0;
+}
+
 .portfolio-card p {
   color: var(--muted);
   line-height: 1.6;

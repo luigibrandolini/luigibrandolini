@@ -204,21 +204,21 @@ export const portfolio: Record<Locale, PortfolioItem[]> = {
       title: "IT Consulting",
       description:
         "Supporto le organizzazioni nella gestione efficace dei progetti attraverso metodologie Agile e Scrum, migliorando governance, time-to-market e qualità del delivery. Analizzo e ottimizzo i workflow aziendali per aumentare efficienza operativa, automazione e controllo dei processi.",
-      tags: ["HR", "Gestione", "Software"],
+      tags: ["Agile Delivery", "Scrum", "Project Governance", "Digital Transformation", "Process Optimization", "Workflow Automation", "Change Management", "IT Strategy"],
       link: "#",
     },
     {
       title: "Software Architecture",
       description:
         "Progetto e sviluppo architetture software scalabili, robuste e cloud-ready, basate su microservizi e sulle versioni più evolute di Java e Spring (Framework e Boot). Definisco soluzioni orientate a resilienza, osservabilità e performance, ottimizzando al contempo i costi infrastrutturali attraverso pratiche moderne di containerizzazione, orchestrazione e monitoraggio continuo.",
-      tags: ["Platform", "Affidabilità", "Cloud"],
+      tags: ["Microservices", "Cloud-Native", "Domain-Driven Design", "Event-Driven Architecture", "API Design", "Scalability", "Resilience", "Observability", "DevOps", "Containerization"],
       link: "#",
     },
     {
       title: "AI Enablement",
       description:
         "Affianco le aziende nell'adozione strategica dell'Intelligenza Artificiale, trasformando le opportunità offerte dai modelli linguistici in soluzioni concrete e integrate nei processi aziendali. Progetto framework basati su LLM e DSL per garantire sviluppo guidato, compliance normativa e maggiore produttività dei team tecnici.",
-      tags: ["AI", "Delivery", "Governance"],
+      tags: ["AI Strategy", "Generative AI", "LLM Integration", "Conversational Interfaces", "DSL Engineering", "AI Governance", "Prompt Engineering", "Intelligent Automation", "Responsible AI"],
       link: "#",
     },
   ],
@@ -227,21 +227,21 @@ export const portfolio: Record<Locale, PortfolioItem[]> = {
       title: "IT Consulting",
       description:
         "I support organizations in effective project management through Agile and Scrum methodologies, improving governance, time-to-market, and delivery quality. I analyze and optimize business workflows to increase operational efficiency, automation, and process control.",
-      tags: ["HR", "Management", "Software"],
+      tags: ["Agile Delivery", "Scrum", "Project Governance", "Digital Transformation", "Process Optimization", "Workflow Automation", "Change Management", "IT Strategy"],
       link: "#",
     },
     {
       title: "Software Architecture",
       description:
         "I design and develop scalable, robust, cloud-ready software architectures based on microservices and the most advanced versions of Java and Spring (Framework and Boot). I define solutions focused on resilience, observability, and performance, while optimizing infrastructure costs through modern containerization, orchestration, and continuous monitoring practices.",
-      tags: ["Platform", "Reliability", "Cloud"],
+      tags: ["Microservices", "Cloud-Native", "Domain-Driven Design", "Event-Driven Architecture", "API Design", "Scalability", "Resilience", "Observability", "DevOps", "Containerization"],
       link: "#",
     },
     {
       title: "AI Enablement",
       description:
         "I support companies in the strategic adoption of Artificial Intelligence, turning opportunities offered by language models into concrete solutions integrated into business processes. I design frameworks based on LLMs and DSLs to ensure guided development, regulatory compliance, and higher productivity for technical teams.",
-      tags: ["AI", "Delivery", "Governance"],
+      tags: ["AI Strategy", "Generative AI", "LLM Integration", "Conversational Interfaces", "DSL Engineering", "AI Governance", "Prompt Engineering", "Intelligent Automation", "Responsible AI"],
       link: "#",
     },
   ],
@@ -250,21 +250,21 @@ export const portfolio: Record<Locale, PortfolioItem[]> = {
       title: "IT Consulting",
       description:
         "Apoyo a las organizaciones en la gestion eficaz de proyectos mediante metodologias Agile y Scrum, mejorando la gobernanza, el time-to-market y la calidad del delivery. Analizo y optimizo los flujos de trabajo empresariales para aumentar la eficiencia operativa, la automatizacion y el control de procesos.",
-      tags: ["RR. HH.", "Gestion", "Software"],
+      tags: ["Agile Delivery", "Scrum", "Project Governance", "Digital Transformation", "Process Optimization", "Workflow Automation", "Change Management", "IT Strategy"],
       link: "#",
     },
     {
       title: "Software Architecture",
       description:
         "Diseño y desarrollo arquitecturas de software escalables, robustas y cloud-ready, basadas en microservicios y en las versiones mas avanzadas de Java y Spring (Framework y Boot). Defino soluciones orientadas a resiliencia, observabilidad y rendimiento, optimizando al mismo tiempo los costes de infraestructura mediante practicas modernas de contenedorizacion, orquestacion y monitorizacion continua.",
-      tags: ["Plataforma", "Fiabilidad", "Cloud"],
+      tags: ["Microservices", "Cloud-Native", "Domain-Driven Design", "Event-Driven Architecture", "API Design", "Scalability", "Resilience", "Observability", "DevOps", "Containerization"],
       link: "#",
     },
     {
       title: "AI Enablement",
       description:
         "Acompaño a las empresas en la adopcion estrategica de la Inteligencia Artificial, transformando las oportunidades de los modelos de lenguaje en soluciones concretas e integradas en los procesos de negocio. Diseño frameworks basados en LLM y DSL para garantizar desarrollo guiado, cumplimiento normativo y mayor productividad de los equipos tecnicos.",
-      tags: ["AI", "Delivery", "Governance"],
+      tags: ["AI Strategy", "Generative AI", "LLM Integration", "Conversational Interfaces", "DSL Engineering", "AI Governance", "Prompt Engineering", "Intelligent Automation", "Responsible AI"],
       link: "#",
     },
   ],
@@ -273,21 +273,21 @@ export const portfolio: Record<Locale, PortfolioItem[]> = {
       title: "IT Consulting",
       description:
         "J'accompagne les organisations dans la gestion efficace des projets grâce aux methodes Agile et Scrum, en ameliorant la gouvernance, le time-to-market et la qualite du delivery. J'analyse et j'optimise les workflows d'entreprise afin d'augmenter l'efficacite operationnelle, l'automatisation et le controle des processus.",
-      tags: ["RH", "Gestion", "Logiciel"],
+      tags: ["Agile Delivery", "Scrum", "Project Governance", "Digital Transformation", "Process Optimization", "Workflow Automation", "Change Management", "IT Strategy"],
       link: "#",
     },
     {
       title: "Software Architecture",
       description:
         "Je conçois et developpe des architectures logicielles scalables, robustes et cloud-ready, basees sur des microservices et sur les versions les plus evoluees de Java et Spring (Framework et Boot). Je definis des solutions orientees vers la resilience, l'observabilite et les performances, tout en optimisant les couts d'infrastructure grace a des pratiques modernes de containerisation, d'orchestration et de monitoring continu.",
-      tags: ["Plateforme", "Fiabilite", "Cloud"],
+      tags: ["Microservices", "Cloud-Native", "Domain-Driven Design", "Event-Driven Architecture", "API Design", "Scalability", "Resilience", "Observability", "DevOps", "Containerization"],
       link: "#",
     },
     {
       title: "AI Enablement",
       description:
         "J'accompagne les entreprises dans l'adoption strategique de l'Intelligence Artificielle, en transformant les opportunites offertes par les modeles de langage en solutions concretes et integrees aux processus metier. Je conçois des frameworks bases sur des LLM et des DSL pour garantir un developpement guide, la conformite reglementaire et une meilleure productivite des equipes techniques.",
-      tags: ["AI", "Delivery", "Governance"],
+      tags: ["AI Strategy", "Generative AI", "LLM Integration", "Conversational Interfaces", "DSL Engineering", "AI Governance", "Prompt Engineering", "Intelligent Automation", "Responsible AI"],
       link: "#",
     },
   ],
