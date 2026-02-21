@@ -153,7 +153,16 @@ const defaultSiteLocale = "it";
     <div class="page">
       <slot />
     </div>
-    <aside class="cookie-banner" id="cookie-banner" role="dialog" aria-live="polite" aria-labelledby="cookie-banner-title">
+    <aside
+      class="cookie-banner"
+      id="cookie-banner"
+      role="dialog"
+      aria-live="polite"
+      aria-labelledby="cookie-banner-title"
+      data-supported-locales={JSON.stringify(supportedLocales)}
+      data-default-locale={defaultSiteLocale}
+      data-base-path={baseUrl}
+    >
       <div class="cookie-banner-content">
         <p class="cookie-banner-title" id="cookie-banner-title">{cookieCopy.title}</p>
         <p class="cookie-banner-text">{cookieCopy.description}</p>
@@ -169,9 +178,6 @@ const defaultSiteLocale = "it";
         const LANGUAGE_COOKIE = "lb_preferred_lang";
         const CONSENT_MAX_AGE = 60 * 60 * 24 * 180;
         const SECURE_SUFFIX = window.location.protocol === "https:" ? "; Secure" : "";
-        const SUPPORTED_LOCALES = {JSON.stringify(supportedLocales)};
-        const DEFAULT_LOCALE = {JSON.stringify(defaultSiteLocale)};
-        const BASE_PATH = {JSON.stringify(baseUrl)};
 
         const readCookie = (name) => {
           const key = `${name}=`;
@@ -192,6 +198,17 @@ const defaultSiteLocale = "it";
         const acceptNecessaryButton = document.getElementById("cookie-accept-necessary");
         const acceptAllButton = document.getElementById("cookie-accept-all");
         const languageSelect = document.getElementById("lang-select");
+        const supportedLocalesRaw = banner?.dataset.supportedLocales ?? '["it","en","es","fr"]';
+        const SUPPORTED_LOCALES = (() => {
+          try {
+            const parsed = JSON.parse(supportedLocalesRaw);
+            return Array.isArray(parsed) ? parsed : ["it", "en", "es", "fr"];
+          } catch {
+            return ["it", "en", "es", "fr"];
+          }
+        })();
+        const DEFAULT_LOCALE = banner?.dataset.defaultLocale || "it";
+        const BASE_PATH = banner?.dataset.basePath || "/";
 
         const hideBanner = () => {
           if (banner) {
