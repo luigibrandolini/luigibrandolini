@@ -837,6 +837,87 @@ h1 {
   height: 24px;
 }
 
+.cookie-banner {
+  position: fixed;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  z-index: 120;
+  padding: 18px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(46, 127, 222, 0.2);
+  box-shadow: 0 18px 45px rgba(14, 35, 61, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  backdrop-filter: blur(7px);
+}
+
+.cookie-banner-hidden {
+  display: none;
+}
+
+.cookie-banner-content {
+  max-width: 780px;
+}
+
+.cookie-banner-title {
+  font-family: "Trebuchet MS", "Verdana", sans-serif;
+  font-size: 0.84rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-dark);
+  margin-bottom: 6px;
+}
+
+.cookie-banner-text {
+  color: var(--muted);
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.cookie-banner-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.cookie-btn {
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-family: "Trebuchet MS", "Verdana", sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.cookie-btn-primary {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(46, 127, 222, 0.26);
+}
+
+.cookie-btn-primary:hover {
+  background: var(--accent-dark);
+}
+
+.cookie-btn-secondary {
+  background: #f8fbff;
+  color: var(--ink);
+  border-color: rgba(14, 35, 61, 0.2);
+}
+
+.cookie-btn-secondary:hover {
+  border-color: rgba(46, 127, 222, 0.42);
+  color: var(--accent-dark);
+}
+
 @media (max-width: 720px) {
   .hero {
     padding-top: 32px;
@@ -866,6 +947,25 @@ h1 {
 
   .hero-card {
     order: -1;
+  }
+
+  .cookie-banner {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .cookie-banner-actions {
+    width: 100%;
+  }
+
+  .cookie-btn {
+    flex: 1;
+    text-align: center;
+    justify-content: center;
   }
 }
 

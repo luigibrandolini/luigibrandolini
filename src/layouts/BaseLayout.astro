@@ -54,6 +54,44 @@ const websiteJsonLd = {
   url: Astro.site?.toString() ?? canonical,
   inLanguage: lang,
 };
+const cookieBannerContent: Record<string, {
+  title: string;
+  description: string;
+  necessaryButton: string;
+  acceptButton: string;
+}> = {
+  it: {
+    title: "Preferenze cookie",
+    description:
+      "Questo sito utilizza cookie tecnici per memorizzare il consenso e, se accetti, la preferenza di lingua. Non vengono impostati cookie di profilazione o advertising.",
+    necessaryButton: "Solo necessari",
+    acceptButton: "Accetta",
+  },
+  en: {
+    title: "Cookie preferences",
+    description:
+      "This site uses technical cookies to store consent and, if accepted, your language preference. We do not use profiling or advertising cookies.",
+    necessaryButton: "Necessary only",
+    acceptButton: "Accept",
+  },
+  es: {
+    title: "Preferencias de cookies",
+    description:
+      "Este sitio usa cookies técnicas para guardar el consentimiento y, si aceptas, la preferencia de idioma. No usamos cookies de perfilado ni publicidad.",
+    necessaryButton: "Solo necesarias",
+    acceptButton: "Aceptar",
+  },
+  fr: {
+    title: "Préférences des cookies",
+    description:
+      "Ce site utilise des cookies techniques pour mémoriser le consentement et, si vous l'acceptez, la langue choisie. Nous n'utilisons pas de cookies de profilage ni publicitaires.",
+    necessaryButton: "Nécessaires seulement",
+    acceptButton: "Accepter",
+  },
+};
+const cookieCopy = cookieBannerContent[lang] ?? cookieBannerContent.it;
+const supportedLocales = ["it", "en", "es", "fr"];
+const defaultSiteLocale = "it";
 ---
 
 <!doctype html>
@@ -115,5 +153,145 @@ const websiteJsonLd = {
     <div class="page">
       <slot />
     </div>
+    <aside class="cookie-banner" id="cookie-banner" role="dialog" aria-live="polite" aria-labelledby="cookie-banner-title">
+      <div class="cookie-banner-content">
+        <p class="cookie-banner-title" id="cookie-banner-title">{cookieCopy.title}</p>
+        <p class="cookie-banner-text">{cookieCopy.description}</p>
+      </div>
+      <div class="cookie-banner-actions">
+        <button type="button" class="cookie-btn cookie-btn-secondary" id="cookie-accept-necessary">{cookieCopy.necessaryButton}</button>
+        <button type="button" class="cookie-btn cookie-btn-primary" id="cookie-accept-all">{cookieCopy.acceptButton}</button>
+      </div>
+    </aside>
+    <script is:inline>
+      (() => {
+        const CONSENT_COOKIE = "lb_cookie_consent";
+        const LANGUAGE_COOKIE = "lb_preferred_lang";
+        const CONSENT_MAX_AGE = 60 * 60 * 24 * 180;
+        const SECURE_SUFFIX = window.location.protocol === "https:" ? "; Secure" : "";
+        const SUPPORTED_LOCALES = {JSON.stringify(supportedLocales)};
+        const DEFAULT_LOCALE = {JSON.stringify(defaultSiteLocale)};
+        const BASE_PATH = {JSON.stringify(baseUrl)};
+
+        const readCookie = (name) => {
+          const key = `${name}=`;
+          const chunks = document.cookie ? document.cookie.split("; ") : [];
+          for (const chunk of chunks) {
+            if (chunk.startsWith(key)) {
+              return decodeURIComponent(chunk.slice(key.length));
+            }
+          }
+          return "";
+        };
+
+        const writeCookie = (name, value, maxAge) => {
+          document.cookie = `${name}=${encodeURIComponent(value)}; path=/; max-age=${maxAge}; SameSite=Lax${SECURE_SUFFIX}`;
+        };
+
+        const banner = document.getElementById("cookie-banner");
+        const acceptNecessaryButton = document.getElementById("cookie-accept-necessary");
+        const acceptAllButton = document.getElementById("cookie-accept-all");
+        const languageSelect = document.getElementById("lang-select");
+
+        const hideBanner = () => {
+          if (banner) {
+            banner.classList.add("cookie-banner-hidden");
+          }
+        };
+
+        const consentValue = readCookie(CONSENT_COOKIE);
+        if (consentValue === "necessary" || consentValue === "all") {
+          hideBanner();
+        }
+
+        if (consentValue === "all") {
+          const preferredLanguageUrl = readCookie(LANGUAGE_COOKIE);
+          if (preferredLanguageUrl) {
+            try {
+              const preferred = new URL(preferredLanguageUrl, window.location.origin);
+              if (preferred.pathname !== window.location.pathname) {
+                window.location.replace(preferred.href);
+                return;
+              }
+            } catch {
+              // Ignore malformed cookie values.
+            }
+          }
+        }
+
+        const normalizeBasePath = (path) => {
+          if (!path || path === "/") {
+            return "/";
+          }
+          return path.endsWith("/") ? path : `${path}/`;
+        };
+
+        const resolveBrowserLocale = () => {
+          const browserLocales = Array.isArray(navigator.languages) && navigator.languages.length > 0
+            ? navigator.languages
+            : [navigator.language];
+          for (const localeValue of browserLocales) {
+            if (!localeValue) {
+              continue;
+            }
+            const shortLocale = localeValue.toLowerCase().split("-")[0];
+            if (SUPPORTED_LOCALES.includes(shortLocale)) {
+              return shortLocale;
+            }
+          }
+          return DEFAULT_LOCALE;
+        };
+
+        const basePath = normalizeBasePath(BASE_PATH);
+        const currentPath = window.location.pathname;
+        const pathWithoutBase = currentPath.startsWith(basePath)
+          ? currentPath.slice(basePath.length)
+          : currentPath.replace(/^\//, "");
+        const firstSegment = pathWithoutBase.split("/")[0] || "";
+        const isLocalizedPath = SUPPORTED_LOCALES.includes(firstSegment);
+        const isDefaultHomepage = !isLocalizedPath && (pathWithoutBase === "" || pathWithoutBase === "index.html");
+
+        if (isDefaultHomepage) {
+          const browserLocale = resolveBrowserLocale();
+          if (browserLocale !== DEFAULT_LOCALE) {
+            const targetPath = `${basePath}${browserLocale}/`;
+            window.location.replace(`${targetPath}${window.location.search}${window.location.hash}`);
+            return;
+          }
+        }
+
+        if (acceptNecessaryButton) {
+          acceptNecessaryButton.addEventListener("click", () => {
+            writeCookie(CONSENT_COOKIE, "necessary", CONSENT_MAX_AGE);
+            hideBanner();
+          });
+        }
+
+        if (acceptAllButton) {
+          acceptAllButton.addEventListener("click", () => {
+            writeCookie(CONSENT_COOKIE, "all", CONSENT_MAX_AGE);
+            if (languageSelect instanceof HTMLSelectElement) {
+              const currentValue = languageSelect.value || "";
+              if (currentValue) {
+                writeCookie(LANGUAGE_COOKIE, currentValue, CONSENT_MAX_AGE);
+              }
+            }
+            hideBanner();
+          });
+        }
+
+        if (languageSelect instanceof HTMLSelectElement) {
+          languageSelect.addEventListener("change", () => {
+            const nextUrl = languageSelect.value;
+            if (nextUrl && readCookie(CONSENT_COOKIE) === "all") {
+              writeCookie(LANGUAGE_COOKIE, nextUrl, CONSENT_MAX_AGE);
+            }
+            if (nextUrl) {
+              window.location.href = nextUrl;
+            }
+          });
+        }
+      })();
+    </script>
   </body>
 </html>

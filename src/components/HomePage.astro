@@ -79,7 +79,6 @@ const portfolioIcons: Record<string, { viewBox: string; path: string }> = {
         id="lang-select"
         class="lang-select"
         name="lang"
-        onChange="window.location.href=this.value"
       >
         {locales.map((code) => (
           <option value={localePath(code)} selected={code === lang}>
